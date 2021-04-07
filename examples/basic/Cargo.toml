@@ -1,0 +1,12 @@
+[package]
+name = "basic"
+version = "0.0.1"
+authors = ["glennsl <glenn@slotte.net>"]
+edition = "2018"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+seed-calendar = { path = "../../" }
+seed = "0.8.0"

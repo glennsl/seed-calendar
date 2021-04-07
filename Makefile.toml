@@ -1,0 +1,70 @@
+[config]
+default_to_workspace = false
+min_version = "0.32.1"
+
+[config.modify_core_tasks]
+private = true
+namespace = "default"
+
+[env]
+PORT = "9009"
+
+# ---- BUILD ----
+
+[tasks.build]
+description = "Build only library"
+command = "cargo"
+args = ["build"]
+
+[tasks.build_release]
+extend = "build"
+description = "Build only library in relase mode"
+args = ["build", "--release"]
+
+# ---- START ----
+
+[tasks.start]
+description = "Start chosen example. Ex: 'cargo make start basic'"
+command = "cargo"
+args = ["make", "--cwd", "./examples/${@}", "start"]
+
+# ---- DEFAULT TASKS FOR EXAMPLES ----
+# These tasks should be run only from the example root
+# and example's Makefile.toml should override all tasks in dependencies.
+
+[tasks.default_build]
+description = "Build with wasm-pack"
+command = "wasm-pack"
+args = ["build", "--target", "web", "--out-name", "package", "--dev"]
+dependencies = ["default::install-wasm-pack"]
+
+[tasks.default_start]
+description = "Build and start microserver"
+install_crate = { crate_name = "microserver", binary = "microserver", test_arg = "-h" }
+command = "microserver"
+args = ["--port", "${PORT}"]
+dependencies = ["build"]
+
+# ---- HELPERS -----
+
+[tasks.build_examples]
+description = "Build examples"
+command = "cargo"
+args = ["make", "for_each", "build"]
+
+[tasks.for_each]
+description = "Run chosen task for each example in its root. Ex: 'cargo make for_each build'"
+script = [
+'''
+#!@duckscript
+defined = is_defined 1
+assert ${defined} "Wrong number of arguments! Correct example: 'cargo make for_each build'"
+task = set ${1}
+handle = glob_array examples/*/Makefile.toml
+for path in ${handle}
+    example_root = dirname ${path}
+    echo Example root: ${example_root}
+    exec --fail-on-error cargo make --cwd ${example_root} ${task}
+end
+'''
+]

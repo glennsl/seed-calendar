@@ -1,0 +1,8 @@
+# --- Files ---
+**.wasm
+**/*.rs.bk
+**/*.log
+
+# --- Dependencies and Build artifacts ---
+**/target
+**/pkg/*
