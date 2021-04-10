@@ -10,3 +10,4 @@ crate-type = ["cdylib"]
 [dependencies]
 seed-calendar = { path = "../../" }
 seed = "0.8.0"
+chrono = "0.4.19"
