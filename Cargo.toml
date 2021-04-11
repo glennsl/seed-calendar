@@ -1,7 +1,10 @@
 [package]
 name = "seed-calendar"
 version = "0.1.0"
-authors = ["glennsl <glenn@slotte.net>"]
+authors = ["Glenn Slotte <glenn@slotte.net>"]
+license = "MPL-2.0"
+description = "calendar UI component toolkit for seed"
+repository = "https://github.com/glennsl/seed-calendar"
 edition = "2018"
 
 [workspace]

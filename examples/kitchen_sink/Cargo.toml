@@ -1,7 +1,10 @@
 [package]
 name = "kitchen_sink"
 version = "0.0.1"
-authors = ["glennsl <glenn@slotte.net>"]
+authors = ["Glenn Slotte <glenn@slotte.net>"]
+license = "MPL-2.0"
+description = "kitchen sink example for seed-calendar"
+repository = "https://github.com/glennsl/seed-calendar"
 edition = "2018"
 
 [lib]
