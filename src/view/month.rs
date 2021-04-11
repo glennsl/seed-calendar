@@ -9,6 +9,8 @@ pub struct MonthView<Ms> {
     on_click: Option<Rc<dyn Fn(NaiveDate) -> Ms>>,
     first_weekday: Weekday,
     show_week_numbers: bool,
+    show_weekdays: bool,
+    locale: String,
 }
 
 enum Selection {
@@ -28,6 +30,8 @@ impl<Ms: 'static> MonthView<Ms> {
             on_click: None,
             first_weekday: Weekday::Mon,
             show_week_numbers: false,
+            show_weekdays: false,
+            locale: String::from("en-US"),
         }
     }
 
@@ -62,8 +66,18 @@ impl<Ms: 'static> MonthView<Ms> {
         self
     }
 
+    pub fn with_locale(mut self, locale: impl Into<String>) -> Self {
+        self.locale = locale.into();
+        self
+    }
+
     pub fn show_week_numbers(mut self) -> Self {
         self.show_week_numbers = true;
+        self
+    }
+
+    pub fn show_weekdays(mut self) -> Self {
+        self.show_weekdays = true;
         self
     }
 
@@ -94,6 +108,15 @@ impl<Ms: 'static> MonthView<Ms> {
             attrs! {
                 At::from("role") => "presentation",
             },
+            self.show_weekdays.then(|| {
+                thead![tr![
+                    self.show_week_numbers.then(|| th![C!["week-number"]]),
+                    start_date
+                        .iter_days()
+                        .take(7)
+                        .map(|date| th![helpers::format_weekday(date.weekday(), &self.locale)])
+                ]]
+            }),
             weeks.map(|week| {
                 let days = week.iter_days().take(7);
 
@@ -170,5 +193,21 @@ mod helpers {
         let adjusted_date = date + Duration::days(offset as i64);
 
         adjusted_date.iso_week().week()
+    }
+
+    pub fn format_weekday(day: Weekday, locale: &str) -> String {
+        use crate::util::intl;
+        use js_sys::*;
+        use wasm_bindgen::prelude::*;
+
+        let opts = Object::new();
+        Reflect::set(&opts, &JsValue::from("weekday"), &JsValue::from("narrow")).unwrap();
+
+        let formatter = intl::DateTimeFormat::new(&Array::of1(&JsValue::from(locale)), &opts);
+
+        let datetime = NaiveDate::from_isoywd(1970, 1, day).and_hms(12, 0, 0);
+        let js_date = Date::new(&JsValue::from(datetime.timestamp_millis() as f64));
+
+        formatter.format(&js_date).as_string().unwrap()
     }
 }

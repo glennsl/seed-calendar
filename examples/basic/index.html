@@ -12,16 +12,26 @@
          }
 
          .seed-calendar-month-view {
+             font-family: ui-sans-serif, sans-serif;
              background: white;
              box-shadow: 2px 2px 4px #0001;
              border-spacing: 0;
              font-size: 13px;
+             user-select: none;
+             cursor: default;
+         }
+
+         .seed-calendar-month-view > thead > tr > th {
+             color: #444;
+             font-weight: bold;
+             text-align: center;
+             font-size: .75em;
          }
 
          .seed-calendar-month-view > tr > td {
              color: #ccc;
-             width: 2em;
-             height: 2em;
+             width: 2.25em;
+             height: 2.25em;
              cursor: default;
              user-select: none;
              text-align: center;
@@ -29,7 +39,8 @@
              padding: 0;
          }
 
-         .seed-calendar-month-view > tr > td.week-number {
+         .seed-calendar-month-view > tr > td.week-number,
+         .seed-calendar-month-view > thead > tr > th.week-number {
              color: #aaa;
              background: #f8f8f8;
              font-size: .75em;
@@ -44,7 +55,7 @@
              -webkit-appearance: none;
              -moz-appearance: none;
              padding: 0;
-             font-size: inherit;
+             font: inherit;
 
              color: #444;
              width: 100%;

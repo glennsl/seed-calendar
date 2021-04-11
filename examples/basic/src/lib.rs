@@ -41,6 +41,7 @@ fn view(model: &Model) -> impl IntoNodes<Msg> {
     div![seed_calendar::view::MonthView::new(2021, 4)
         .maybe_with_selection(model.start, model.end)
         .show_week_numbers()
+        .show_weekdays()
         .on_click(Msg::SelectDate)]
 }
 
