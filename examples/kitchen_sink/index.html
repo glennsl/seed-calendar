@@ -131,6 +131,7 @@
              display: grid;
              grid-template-columns: 1fr 1fr 1fr;
              width: 18em;
+             height: 14em;
 
              background: var(--panel-color);
              box-shadow: var(--panel-shadow);
@@ -156,6 +157,43 @@
          }
 
          .seed-calendar-years-view > li.selected {
+             color: var(--selection-color);
+             background: var(--selection-background-color);
+             border-color: var(--selection-color);
+         }
+
+         /* Months view */
+
+         .seed-calendar-months-view {
+             display: grid;
+             grid-template-columns: 1fr 1fr 1fr;
+             width: 18em;
+             height: 14em;
+
+             background: var(--panel-color);
+             box-shadow: var(--panel-shadow);
+             user-select: none;
+             cursor: default;
+         }
+
+         .seed-calendar-months-view > li {
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             cursor: pointer;
+             padding: .5em 1em;
+             border: 1px solid transparent;
+         }
+
+         .seed-calendar-months-view > li.disabled {
+             color: var(--disabled-text-color);
+         }
+
+         .seed-calendar-months-view > li:hover {
+             background: var(--selection-background-color);
+         }
+
+         .seed-calendar-months-view > li.selected {
              color: var(--selection-color);
              background: var(--selection-background-color);
              border-color: var(--selection-color);
