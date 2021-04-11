@@ -38,8 +38,9 @@ fn update(msg: Msg, model: &mut Model, _orders: &mut impl Orders<Msg>) {
 // VIEW
 
 fn view(model: &Model) -> impl IntoNodes<Msg> {
-    div![seed_calendar::view::MonthView::new(2020, 8)
+    div![seed_calendar::view::MonthView::new(2021, 4)
         .maybe_with_selection(model.start, model.end)
+        .show_week_numbers()
         .on_click(Msg::SelectDate)]
 }
 

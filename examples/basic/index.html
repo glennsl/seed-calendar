@@ -15,6 +15,7 @@
              background: white;
              box-shadow: 2px 2px 4px #0001;
              border-spacing: 0;
+             font-size: 13px;
          }
 
          .seed-calendar-month-view > tr > td {
@@ -28,6 +29,12 @@
              padding: 0;
          }
 
+         .seed-calendar-month-view > tr > td.week-number {
+             color: #aaa;
+             background: #f8f8f8;
+             font-size: .75em;
+         }
+
          .seed-calendar-month-view > tr > td > button {
              /* reset */
              background: none;
@@ -37,6 +44,7 @@
              -webkit-appearance: none;
              -moz-appearance: none;
              padding: 0;
+             font-size: inherit;
 
              color: #444;
              width: 100%;
@@ -61,7 +69,6 @@
              background: #f6f8fe;
              border-color: #4675e1;
              border-radius: 50% 0 0 50%;
-             border-right: none;
          }
 
          .seed-calendar-month-view > tr > td > button.selection-end {
@@ -69,7 +76,6 @@
              background: #f6f8fe;
              border-color: #4675e1;
              border-radius: 0 50% 50% 0;
-             border-left: none;
          }
 
          .seed-calendar-month-view > tr > td > button.in-selection {
@@ -78,6 +84,7 @@
              border-color: #4675e1;
              border-left: none;
              border-right: none;
+             border: none;
              border-radius: 0%;
          }
         </style>
