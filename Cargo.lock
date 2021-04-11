@@ -509,6 +509,7 @@ name = "seed-calendar"
 version = "0.1.0"
 dependencies = [
  "chrono",
+ "js-sys",
  "seed",
  "wasm-bindgen",
 ]
