@@ -11,6 +11,8 @@
              padding: 1em;
          }
 
+         /* Month view */
+
          .seed-calendar-month-view {
              font-family: ui-sans-serif, sans-serif;
              background: white;
@@ -98,11 +100,53 @@
              border: none;
              border-radius: 0%;
          }
+
+         /* Years view */
+
+         .seed-calendar-years-view {
+             /* reset */
+             list-style: none;
+             padding: 0;
+
+             display: grid;
+             grid-template-columns: 1fr 1fr 1fr;
+             width: 18em;
+
+             font-family: ui-sans-serif, sans-serif;
+             background: white;
+             box-shadow: 2px 2px 4px #0001;
+             font-size: 13px;
+             user-select: none;
+             cursor: default;
+         }
+
+         .seed-calendar-years-view > li {
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             cursor: pointer;
+             padding: .5em 1em;
+             border: 1px solid transparent;
+         }
+
+         .seed-calendar-years-view > li.disabled {
+             color: #aaa;
+         }
+
+         .seed-calendar-years-view > li:hover {
+             background: #f6f8fe;
+         }
+
+         .seed-calendar-years-view > li.selected {
+             color: #4675e1;
+             background: #f6f8fe;
+             border-color: #4675e1;
+         }
         </style>
     </head>
 
     <body>
-        <section id="app"></section>
+        <main id="app"></main>
         <script type="module">
             import init from '/pkg/package.js';
             init('/pkg/package_bg.wasm');

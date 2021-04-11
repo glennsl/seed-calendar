@@ -38,11 +38,14 @@ fn update(msg: Msg, model: &mut Model, _orders: &mut impl Orders<Msg>) {
 // VIEW
 
 fn view(model: &Model) -> impl IntoNodes<Msg> {
-    div![seed_calendar::view::MonthView::new(2021, 4)
-        .maybe_with_selection(model.start, model.end)
-        .show_week_numbers()
-        .show_weekdays()
-        .on_click(Msg::SelectDate)]
+    div![
+        seed_calendar::view::MonthView::new(2021, 4)
+            .maybe_with_selection(model.start, model.end)
+            .show_week_numbers()
+            .show_weekdays()
+            .on_click(Msg::SelectDate),
+        seed_calendar::view::YearsView::decade_from(2000).with_selected(2001),
+    ]
 }
 
 // START
