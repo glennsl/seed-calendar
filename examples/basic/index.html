@@ -6,39 +6,73 @@
         <title>Basic seed-calendar example</title>
 
         <style>
+         :root {
+             --panel-color: white;
+             --text-color: #444;
+             --disabled-text-color: #ccc;
+             --selection-color: #4675e1;
+             --selection-background-color: #f6f8fe;
+
+             --panel-shadow: 2px 2px 4px #0001;
+         }
+
          body {
              background: #f5f5f5;
              padding: 1em;
+             font-family: ui-sans-serif, sans-serif;
+             font-size: 13px;
+             color: var(--text-color);
+         }
+
+         /* Reset */
+
+         table {
+             border-spacing: 0;
+         }
+
+         td {
+             padding: 0;
+         }
+
+         button {
+             background: none;
+             border: none;
+             outline: none;
+             appearance: none;
+             -webkit-appearance: none;
+             -moz-appearance: none;
+             padding: 0;
+             font: inherit;
+         }
+
+         ul {
+             list-style: none;
+             padding: 0;
          }
 
          /* Month view */
 
          .seed-calendar-month-view {
-             font-family: ui-sans-serif, sans-serif;
-             background: white;
-             box-shadow: 2px 2px 4px #0001;
-             border-spacing: 0;
-             font-size: 13px;
+             background: var(--panel-color);
+             box-shadow: var(--panel-shadow);
              user-select: none;
              cursor: default;
          }
 
          .seed-calendar-month-view > thead > tr > th {
-             color: #444;
              font-weight: bold;
              text-align: center;
              font-size: .75em;
          }
 
          .seed-calendar-month-view > tr > td {
-             color: #ccc;
+             color: var(--disabled-text-color);
              width: 2.25em;
              height: 2.25em;
              cursor: default;
              user-select: none;
              text-align: center;
              box-sizing: border-box;
-             padding: 0;
          }
 
          .seed-calendar-month-view > tr > td.week-number,
@@ -49,17 +83,7 @@
          }
 
          .seed-calendar-month-view > tr > td > button {
-             /* reset */
-             background: none;
-             border: none;
-             outline: none;
-             appearance: none;
-             -webkit-appearance: none;
-             -moz-appearance: none;
-             padding: 0;
-             font: inherit;
-
-             color: #444;
+             color: var(--text-color);
              width: 100%;
              height: 100%;
              border: 1px solid transparent;
@@ -72,29 +96,29 @@
          }
 
          .seed-calendar-month-view > tr > td > button.selected {
-             color: #4675e1;
-             background: #f6f8fe;
-             border-color: #4675e1;
+             color: var(--selection-color);
+             background: var(--selection-background-color);
+             border-color: var(--selection-color);
          }
 
          .seed-calendar-month-view > tr > td > button.selection-start {
-             color: #4675e1;
-             background: #f6f8fe;
-             border-color: #4675e1;
+             color: var(--selection-color);
+             background: var(--selection-background-color);
+             border-color: var(--selection-color);
              border-radius: 50% 0 0 50%;
          }
 
          .seed-calendar-month-view > tr > td > button.selection-end {
-             color: #4675e1;
-             background: #f6f8fe;
-             border-color: #4675e1;
+             color: var(--selection-color);
+             background: var(--selection-background-color);
+             border-color: var(--selection-color);
              border-radius: 0 50% 50% 0;
          }
 
          .seed-calendar-month-view > tr > td > button.in-selection {
-             color: #4675e1;
-             background: #f6f8fe;
-             border-color: #4675e1;
+             color: var(--selection-color);
+             background: var(--selection-background-color);
+             border-color: var(--selection-color);
              border-left: none;
              border-right: none;
              border: none;
@@ -104,18 +128,12 @@
          /* Years view */
 
          .seed-calendar-years-view {
-             /* reset */
-             list-style: none;
-             padding: 0;
-
              display: grid;
              grid-template-columns: 1fr 1fr 1fr;
              width: 18em;
 
-             font-family: ui-sans-serif, sans-serif;
-             background: white;
-             box-shadow: 2px 2px 4px #0001;
-             font-size: 13px;
+             background: var(--panel-color);
+             box-shadow: var(--panel-shadow);
              user-select: none;
              cursor: default;
          }
@@ -130,17 +148,17 @@
          }
 
          .seed-calendar-years-view > li.disabled {
-             color: #aaa;
+             color: var(--disabled-text-color);
          }
 
          .seed-calendar-years-view > li:hover {
-             background: #f6f8fe;
+             background: var(--selection-background-color);
          }
 
          .seed-calendar-years-view > li.selected {
-             color: #4675e1;
-             background: #f6f8fe;
-             border-color: #4675e1;
+             color: var(--selection-color);
+             background: var(--selection-background-color);
+             border-color: var(--selection-color);
          }
         </style>
     </head>
