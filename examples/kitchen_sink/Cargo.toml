@@ -1,5 +1,5 @@
 [package]
-name = "basic"
+name = "kitchen_sink"
 version = "0.0.1"
 authors = ["glennsl <glenn@slotte.net>"]
 edition = "2018"

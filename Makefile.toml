@@ -24,14 +24,14 @@ args = ["build", "--release"]
 # ---- START ----
 
 [tasks.start]
-description = "Start chosen example. Ex: 'cargo make start basic'"
+description = "Start chosen example. Ex: 'cargo make start kitchen_sink'"
 command = "cargo"
 args = ["make", "--cwd", "./examples/${@}", "start"]
 
-[tasks.watch_example]
+[tasks.watch_kitchen_sink]
 command = "cargo"
-args = ["make", "--cwd", "./examples/basic", "start"]
-watch = { watch = ["./src", "./examples/basic/src"] }
+args = ["make", "--cwd", "./examples/kitchen_sink", "start"]
+watch = { watch = ["./src", "./examples/kitchen_sink/src"] }
 
 # ---- DEFAULT TASKS FOR EXAMPLES ----
 # These tasks should be run only from the example root
