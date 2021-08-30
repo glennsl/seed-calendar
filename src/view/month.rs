@@ -3,20 +3,53 @@ use seed::{prelude::*, *};
 use std::rc::Rc;
 
 pub struct MonthView<Ms> {
-    year: i32,
-    month: u32,
-    selection: Selection,
-    on_click: Option<Rc<dyn Fn(NaiveDate) -> Ms>>,
-    first_weekday: Weekday,
-    show_week_numbers: bool,
-    show_weekdays: bool,
-    locale: String,
+    pub(crate) year: i32,
+    pub(crate) month: u32,
+    pub(crate) selection: Selection,
+    pub(crate) on_click: Option<Rc<dyn Fn(NaiveDate) -> Ms>>,
+    pub(crate) first_weekday: Weekday,
+    pub(crate) show_week_numbers: bool,
+    pub(crate) show_weekdays: bool,
+    pub(crate) locale: String,
 }
 
-enum Selection {
+#[derive(Copy, Clone)]
+pub(crate) enum Selection {
     None,
     Single(NaiveDate),
     Range(NaiveDate, NaiveDate),
+}
+
+impl Selection {
+    fn intersects(self, date: NaiveDate) -> Option<Intersection> {
+        use Intersection::*;
+        Some(match self {
+            Selection::Single(selected) if selected == date => All,
+            Selection::Range(start, _) if start == date => Start,
+            Selection::Range(_, end) if end == date => End,
+            Selection::Range(start, end) if date > start && date < end => Inside,
+            _ => return None,
+        })
+    }
+
+    fn intersects_range(self, start: NaiveDate, end: NaiveDate) -> Option<Intersection> {
+        use Intersection::*;
+        Some(match self {
+            Selection::Single(selected) if selected >= start && selected <= end => All,
+            Selection::Range(sel_start, sel_end) if sel_start == start && sel_end == end => All,
+            Selection::Range(sel_start, _) if sel_start >= start && sel_start <= end => Start,
+            Selection::Range(_, sel_end) if sel_end >= start && sel_end <= end => End,
+            Selection::Range(sel_start, sel_end) if sel_start <= start && sel_end >= end => Inside,
+            _ => return None,
+        })
+    }
+}
+
+enum Intersection {
+    Start,
+    Inside,
+    End,
+    All,
 }
 
 impl<Ms: 'static> MonthView<Ms> {
@@ -110,7 +143,8 @@ impl<Ms: 'static> MonthView<Ms> {
             },
             self.show_weekdays.then(|| {
                 thead![tr![
-                    self.show_week_numbers.then(|| th![C!["week-number"]]),
+                    self.show_week_numbers
+                        .then(|| th![C!["week-number"], span![]]),
                     start_date
                         .iter_days()
                         .take(7)
@@ -118,32 +152,41 @@ impl<Ms: 'static> MonthView<Ms> {
                 ]]
             }),
             weeks.map(|week| {
-                let days = week.iter_days().take(7);
+                let days: Vec<NaiveDate> = week.iter_days().take(7).collect();
+                assert!(!days.is_empty());
 
                 tr![
                     self.show_week_numbers.then(|| td![
                         C!["week-number"],
-                        helpers::week_number(week, self.first_weekday)
+                        div![span![helpers::week_number(week, self.first_weekday)]]
                     ]),
-                    days.map(|date| {
+                    C![match self
+                        .selection
+                        .intersects_range(*days.first().unwrap(), *days.last().unwrap())
+                    {
+                        Some(Intersection::All) => "selected",
+                        Some(Intersection::Start) => "selection-start",
+                        Some(Intersection::End) => "selection-end",
+                        Some(Intersection::Inside) => "in-selection",
+                        None => "",
+                    }],
+                    days.into_iter().map(|date| {
                         if date.month() == self.month {
                             let on_click = self.on_click.clone();
 
-                            td![button![
-                                C![match self.selection {
-                                    Selection::Single(selected) if selected == date => "selected",
-                                    Selection::Range(start, _) if start == date =>
-                                        "selection-start",
-                                    Selection::Range(_, end) if end == date => "selection-end",
-                                    Selection::Range(start, end) if date > start && date < end =>
-                                        "in-selection",
-                                    _ => "",
+                            td![div![button![
+                                C![match self.selection.intersects(date) {
+                                    Some(Intersection::All) => "selected",
+                                    Some(Intersection::Start) => "selection-start",
+                                    Some(Intersection::End) => "selection-end",
+                                    Some(Intersection::Inside) => "in-selection",
+                                    None => "",
                                 }],
                                 on_click.map(|on_click| ev(Ev::Click, move |_| on_click(date))),
                                 date.day()
-                            ]]
+                            ]]]
                         } else {
-                            td![date.day()]
+                            td![div![date.day()]]
                         }
                     })
                 ]

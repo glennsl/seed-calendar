@@ -57,6 +57,7 @@
              box-shadow: var(--panel-shadow);
              user-select: none;
              cursor: default;
+             border-collapse: collapse;
          }
 
          .seed-calendar-month-view > thead > tr > th {
@@ -65,10 +66,11 @@
              font-size: .75em;
          }
 
-         .seed-calendar-month-view > tr > td {
+         .seed-calendar-month-view > tr > td > div {
              color: var(--disabled-text-color);
              width: 2.25em;
              height: 2.25em;
+             line-height: 2.25em;
              cursor: default;
              user-select: none;
              text-align: center;
@@ -77,12 +79,15 @@
 
          .seed-calendar-month-view > tr > td.week-number,
          .seed-calendar-month-view > thead > tr > th.week-number {
-             color: #aaa;
              background: #f8f8f8;
+         }
+         .seed-calendar-month-view > tr > td.week-number > div > span, 
+         .seed-calendar-month-view > thead > tr > th.week-number > spam {
+             color: #aaa;
              font-size: .75em;
          }
 
-         .seed-calendar-month-view > tr > td > button {
+         .seed-calendar-month-view > tr > td > div > button {
              color: var(--text-color);
              width: 100%;
              height: 100%;
@@ -91,38 +96,160 @@
              cursor: pointer;
          }
 
-         .seed-calendar-month-view > tr > td > button:hover {
+         .seed-calendar-month-view > tr > td > div > button:hover {
              background: #f6f8fe;
          }
 
-         .seed-calendar-month-view > tr > td > button.selected {
+         .seed-calendar-month-view > tr > td > div > button.selected {
              color: var(--selection-color);
              background: var(--selection-background-color);
              border-color: var(--selection-color);
          }
 
-         .seed-calendar-month-view > tr > td > button.selection-start {
+         .seed-calendar-month-view > tr > td > div > button.selection-start {
              color: var(--selection-color);
              background: var(--selection-background-color);
              border-color: var(--selection-color);
              border-radius: 50% 0 0 50%;
          }
 
-         .seed-calendar-month-view > tr > td > button.selection-end {
+         .seed-calendar-month-view > tr > td > div > button.selection-end {
              color: var(--selection-color);
              background: var(--selection-background-color);
              border-color: var(--selection-color);
              border-radius: 0 50% 50% 0;
          }
 
-         .seed-calendar-month-view > tr > td > button.in-selection {
+         .seed-calendar-month-view > tr > td > div > button.in-selection {
              color: var(--selection-color);
              background: var(--selection-background-color);
              border-color: var(--selection-color);
              border-left: none;
              border-right: none;
-             border: none;
+             border-color: transparent;
              border-radius: 0%;
+         }
+
+         .seed-calendar-weeks-view > .seed-calendar-month-view > tr:hover > td > div {
+             background: var(--selection-background-color);
+         }
+         .seed-calendar-weeks-view > .seed-calendar-month-view > tr:hover > td:first-child > div {
+             border-bottom-left-radius: 50%;
+             border-top-left-radius: 50%;
+         }
+         .seed-calendar-weeks-view > .seed-calendar-month-view > tr:hover > td:last-child > div {
+             border-bottom-right-radius: 50%;
+             border-top-right-radius: 50%;
+         }
+
+         .seed-calendar-weeks-view > .seed-calendar-month-view > tr.selected > td.week-number > div > span,
+         .seed-calendar-weeks-view > .seed-calendar-month-view > tr.selection-start > td.week-number > div > span,
+         .seed-calendar-weeks-view > .seed-calendar-month-view > tr.selection-end > td.week-number > div > span,
+         .seed-calendar-weeks-view > .seed-calendar-month-view > tr.in-selection > td.week-number > div > span {
+             color: var(--selection-color);
+             opacity: .5;
+         }
+
+         .seed-calendar-weeks-view > .seed-calendar-month-view > tr > td > div {
+             border-top: 1px solid transparent;
+             border-bottom: 1px solid transparent;
+         }
+         .seed-calendar-weeks-view > .seed-calendar-month-view > tr > td > div > button {
+             color: var(--text-color);
+             background: none;
+             border: none;
+             border-radius: 0;
+         }
+         .seed-calendar-weeks-view > .seed-calendar-month-view > tr.selected > td > div {
+             border-top: 1px solid transparent;
+             border-bottom: 1px solid transparent;
+         }
+         .seed-calendar-weeks-view > .seed-calendar-month-view > tr.selected > td:first-child > div {
+             border-bottom-left-radius: 50%;
+             border-top-left-radius: 50%;
+         }
+         .seed-calendar-weeks-view > .seed-calendar-month-view > tr.selected > td:last-child > div {
+             border-bottom-right-radius: 50%;
+             border-top-right-radius: 50%;
+         }
+
+         .seed-calendar-weeks-view > .seed-calendar-month-view > tr.selection-start > td > div {
+             border-top: 1px solid transparent;
+         }
+         .seed-calendar-weeks-view > .seed-calendar-month-view > tr.selection-start > td:first-child > div {
+             border-top-left-radius: 50%;
+             border-bottom-left-radius: 0;
+         }
+         .seed-calendar-weeks-view > .seed-calendar-month-view > tr.selection-start > td:last-child > div {
+             border-top-right-radius: 50%;
+             border-bottom-right-radius: 0;
+         }
+
+         .seed-calendar-weeks-view > .seed-calendar-month-view > tr.selection-end > td > div {
+             border-bottom: 1px solid transparent;
+         }
+         .seed-calendar-weeks-view > .seed-calendar-month-view > tr.selection-end > td:first-child > div {
+             border-bottom-left-radius: 50%;
+             border-top-left-radius: 0;
+         }
+         .seed-calendar-weeks-view > .seed-calendar-month-view > tr.selection-end > td:last-child > div {
+             border-bottom-right-radius: 50%;
+             border-top-right-radius: 0;
+         }
+
+         .seed-calendar-weeks-view > .seed-calendar-month-view > tr > td:first-child > div {
+             border-left: 1px solid transparent;
+         }
+         .seed-calendar-weeks-view > .seed-calendar-month-view > tr > td:last-child > div {
+             border-right: 1px solid transparent;
+         }
+
+         .seed-calendar-weeks-view > .seed-calendar-month-view > tr.selected > td > div {
+             color: var(--selection-color);
+             background: var(--selection-background-color);
+             border-color: var(--selection-color);
+         }
+         .seed-calendar-weeks-view > .seed-calendar-month-view > tr.selected > td > div > button {
+             color: var(--selection-color);
+         }
+
+         .seed-calendar-weeks-view > .seed-calendar-month-view > tr.selection-start > td > div {
+             color: var(--selection-color);
+             background: var(--selection-background-color);
+             border-color: var(--selection-color);
+             border-bottom-color: transparent;
+         }
+         .seed-calendar-weeks-view > .seed-calendar-month-view > tr.selection-start > td > div > button {
+             color: var(--selection-color);
+         }
+
+         .seed-calendar-weeks-view > .seed-calendar-month-view > tr.selection-end > td > div {
+             color: var(--selection-color);
+             background: var(--selection-background-color);
+             border-color: var(--selection-color);
+             border-top-color: transparent;
+         }
+         .seed-calendar-weeks-view > .seed-calendar-month-view > tr.selection-end > td > div > button {
+             color: var(--selection-color);
+         }
+
+         .seed-calendar-weeks-view > .seed-calendar-month-view > tr.in-selection > td > div {
+             color: var(--selection-color);
+             background: var(--selection-background-color);
+             border-color: var(--selection-color);
+             border-bottom-color: transparent;
+             border-top-color: transparent;
+         }
+         .seed-calendar-weeks-view > .seed-calendar-month-view > tr.in-selection > td:first-child > div {
+             border-bottom-left-radius: 0;
+             border-top-left-radius: 0;
+         }
+         .seed-calendar-weeks-view > .seed-calendar-month-view > tr.in-selection > td:last-child > div {
+             border-bottom-right-radius: 0;
+             border-top-right-radius: 0;
+         }
+         .seed-calendar-weeks-view > .seed-calendar-month-view > tr.in-selection > td > div > button {
+             color: var(--selection-color);
          }
 
          /* Years view */
