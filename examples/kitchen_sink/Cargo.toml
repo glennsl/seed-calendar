@@ -12,5 +12,6 @@ crate-type = ["cdylib"]
 
 [dependencies]
 seed-calendar = { path = "../../" }
-seed = "0.8.0"
+# seed = "^0.8.0"
+seed = { git = "https://github.com/glennsl/seed.git", rev = "40d0514", default-features = false }
 chrono = "0.4.19"
