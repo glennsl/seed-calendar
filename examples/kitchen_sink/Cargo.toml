@@ -13,5 +13,5 @@ crate-type = ["cdylib"]
 [dependencies]
 seed-calendar = { path = "../../" }
 # seed = "^0.8.0"
-seed = { git = "https://github.com/sensonomic/seed", rev = "0baad22", default-features = false }
+seed = { git = "https://github.com/sensonomic/seed", rev = "8691e1f", default-features = false }
 chrono = "0.4.19"

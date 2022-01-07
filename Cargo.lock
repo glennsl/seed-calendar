@@ -416,7 +416,7 @@ checksum = "71d301d4193d031abdd79ff7e3dd721168a9572ef3fe51a1517aba235bd8f86e"
 [[package]]
 name = "seed"
 version = "0.8.0"
-source = "git+https://github.com/sensonomic/seed?rev=0baad22#0baad2248520f10f29b70c9889b41dff1d4f4e1d"
+source = "git+https://github.com/sensonomic/seed?rev=8691e1f#8691e1f52ed6038bc1ac2799ed549950c94f3346"
 dependencies = [
  "cookie",
  "dbg",
