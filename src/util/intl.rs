@@ -14,6 +14,7 @@ extern "C" {
     ///
     /// [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/getCanonicalLocales)
     #[wasm_bindgen(js_name = getCanonicalLocales, js_namespace = Intl)]
+    #[allow(dead_code)]
     pub fn get_canonical_locales(s: &JsValue) -> Array;
 }
 

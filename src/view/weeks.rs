@@ -89,14 +89,14 @@ impl<Ms: 'static> WeeksView<Ms> {
             month: self.month,
             selection: match self.selection {
                 Selection::None => month::Selection::None,
-                Selection::Single(week) => month::Selection::Single(NaiveDate::from_isoywd(
-                    week.year(),
-                    week.week(),
-                    self.first_weekday,
-                )),
+                Selection::Single(week) => month::Selection::Single(
+                    NaiveDate::from_isoywd_opt(week.year(), week.week(), self.first_weekday)
+                        .unwrap(),
+                ),
                 Selection::Range(start, end) => month::Selection::Range(
-                    NaiveDate::from_isoywd(start.year(), start.week(), self.first_weekday),
-                    NaiveDate::from_isoywd(end.year(), end.week(), self.first_weekday),
+                    NaiveDate::from_isoywd_opt(start.year(), start.week(), self.first_weekday)
+                        .unwrap(),
+                    NaiveDate::from_isoywd_opt(end.year(), end.week(), self.first_weekday).unwrap(),
                 ),
             },
             on_click: match self.on_click {

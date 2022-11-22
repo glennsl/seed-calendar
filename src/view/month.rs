@@ -122,7 +122,7 @@ impl<Ms: 'static> MonthView<Ms> {
     // Consumers
 
     pub fn into_node(self) -> Node<Ms> {
-        let first_of_month = NaiveDate::from_ymd(self.year, self.month, 1);
+        let first_of_month = NaiveDate::from_ymd_opt(self.year, self.month, 1).unwrap();
         let start_date = {
             let start_date = helpers::start_of_week(first_of_month, self.first_weekday);
 
@@ -248,7 +248,10 @@ mod helpers {
 
         let formatter = intl::DateTimeFormat::new(&Array::of1(&JsValue::from(locale)), &opts);
 
-        let datetime = NaiveDate::from_isoywd(1970, 1, day).and_hms(12, 0, 0);
+        let datetime = NaiveDate::from_isoywd_opt(1970, 1, day)
+            .unwrap()
+            .and_hms_opt(12, 0, 0)
+            .unwrap();
         let js_date = Date::new(&JsValue::from(datetime.timestamp_millis() as f64));
 
         formatter.format(&js_date).as_string().unwrap()

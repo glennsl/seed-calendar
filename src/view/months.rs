@@ -72,7 +72,10 @@ mod helpers {
 
         let formatter = intl::DateTimeFormat::new(&Array::of1(&JsValue::from(locale)), &opts);
 
-        let datetime = NaiveDate::from_ymd(1970, month, 1).and_hms(12, 0, 0);
+        let datetime = NaiveDate::from_ymd_opt(1970, month, 1)
+            .unwrap()
+            .and_hms_opt(12, 0, 0)
+            .unwrap();
         let js_date = Date::new(&JsValue::from(datetime.timestamp_millis() as f64));
 
         formatter.format(&js_date).as_string().unwrap()
